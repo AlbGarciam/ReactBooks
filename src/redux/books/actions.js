@@ -61,7 +61,6 @@ export const fetchBooksList = () => {
       .then(response => {
         const bookList = _.get(response, 'items', []);
         const totalItems = _.get(response, 'totalItems', []);
-        console.log(`length: ${bookList.length}`);
         dispatch(updateList([...list, ...bookList], totalItems));
       })
       .catch(error => {

@@ -9,7 +9,17 @@ export default class BookList extends React.Component {
     this.props.initBooksList();
   }
 
-  _renderItem = book => <BookCell book={book} />;
+  _renderItem = book => {
+    return (
+      <BookCell
+        book={book.item}
+        onPress={book => {
+          console.log('item tapped');
+          console.log(book);
+        }}
+      />
+    );
+  };
 
   _onEndReached = ({distanceFromEnd}) => {
     const {isFetching, bookList, total} = this.props;
@@ -37,7 +47,7 @@ export default class BookList extends React.Component {
           refreshControl={
             <RefreshControl
               refreshing={isFetching}
-              onRefresh={this.props.fetchHousesList}
+              onRefresh={this.props.initBooksList}
               tintColor={'black'}
               colors={['black']}
             />

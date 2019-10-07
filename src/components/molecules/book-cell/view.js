@@ -5,12 +5,12 @@ import styles from './styles';
 import _ from 'lodash';
 
 const BookCell = ({book, onPress}) => {
-  const title = _.get(book, 'item.volumeInfo.title', 'No title');
-  const image = _.isNil(book, 'item.volumeInfo.imageLinks.smallThumbnail')
+  const title = _.get(book, 'volumeInfo.title', 'No title');
+  const image = _.isNil(book, 'volumeInfo.imageLinks.smallThumbnail')
     ? require('../../../assets/images/placeholder.png')
-    : {uri: _.get(book, 'item.volumeInfo.imageLinks.thumbnail')};
+    : {uri: _.get(book, 'volumeInfo.imageLinks.thumbnail')};
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={() => onPress(book)} style={styles.container}>
       <Image source={image} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.title}>{title}</Text>
