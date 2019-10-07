@@ -14,8 +14,7 @@ export default class BookList extends React.Component {
       <BookCell
         book={book.item}
         onPress={book => {
-          console.log('item tapped');
-          console.log(book);
+          this.props.updateSelectedBook(book);
         }}
       />
     );
