@@ -5,4 +5,7 @@ export default StyleSheet.create({
     backgroundColor: 'red',
     flex: 1,
   },
+  list: {
+    paddingTop: 60,
+  },
 });

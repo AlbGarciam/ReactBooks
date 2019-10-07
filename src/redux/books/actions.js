@@ -51,9 +51,21 @@ export const updateBooksListOffset = () => {
 };
 
 export const fetchBooksList = () => {
-  return (dispatch, getState) => {};
-};
-
-export const postBook = data => {
-  return (dispatch, getState) => {};
+  return (dispatch, getState) => {
+    const searchText = 'game of thrones'.split(' ').join('+');
+    console.log(searchText);
+    const params = {q: searchText};
+    dispatch(setFetching(true));
+    api
+      .getBooks(params)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => {
+        dispatch(setFetching(false));
+      });
+  };
 };
