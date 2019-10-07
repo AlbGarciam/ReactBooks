@@ -38,8 +38,8 @@ export default class BookList extends React.Component {
             <RefreshControl
               refreshing={isFetching}
               onRefresh={this.props.fetchHousesList}
-              tintColor={'red'}
-              colors={['red']}
+              tintColor={'black'}
+              colors={['black']}
             />
           }
         />
