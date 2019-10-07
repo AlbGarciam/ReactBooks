@@ -4,6 +4,7 @@ import {BookCell} from '../../molecules';
 import styles from './style';
 import {Actions} from 'react-native-router-flux';
 import APP_ROUTES from '../../../config/routes';
+import _ from 'lodash';
 
 export default class BookList extends React.Component {
   constructor(props) {
@@ -16,9 +17,10 @@ export default class BookList extends React.Component {
       <BookCell
         book={book.item}
         onPress={book => {
-          console.log(this.props);
           this.props.updateSelectedBook(book);
-          Actions.push(APP_ROUTES.BOOK_DETAILS);
+          Actions.push(APP_ROUTES.BOOK_DETAILS, {
+            title: _.get(book, 'volumeInfo.title'),
+          });
         }}
       />
     );

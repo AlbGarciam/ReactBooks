@@ -1,2 +1,3 @@
 import BookCell from './book-cell';
-export {BookCell};
+import DetailsHeader from './details-header';
+export {BookCell, DetailsHeader};

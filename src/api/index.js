@@ -14,6 +14,5 @@ export const getBooks = params => {
   };
   const paramStringify = qs.stringify(queryParams, {skipNulls: true});
   const url = `/books/v1/volumes?${paramStringify}`;
-  console.log('url: ', url);
   return instance.get(url).then(response => response.data);
 };
