@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch(BooksActions.initBooksList());
     },
     updateSelectedBook: book => {
-      dispatch(BooksActions.updateSelectedBook(book));
+      dispatch(BooksActions.updateItem(book));
     },
     updateBookListOffset: () => {
       dispatch(BooksActions.updateBookListOffset());

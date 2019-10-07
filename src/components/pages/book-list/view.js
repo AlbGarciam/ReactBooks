@@ -2,6 +2,8 @@ import React from 'react';
 import {SafeAreaView, FlatList, RefreshControl} from 'react-native';
 import {BookCell} from '../../molecules';
 import styles from './style';
+import {Actions} from 'react-native-router-flux';
+import APP_ROUTES from '../../../config/routes';
 
 export default class BookList extends React.Component {
   constructor(props) {
@@ -14,7 +16,9 @@ export default class BookList extends React.Component {
       <BookCell
         book={book.item}
         onPress={book => {
+          console.log(this.props);
           this.props.updateSelectedBook(book);
+          Actions.push(APP_ROUTES.BOOK_DETAILS);
         }}
       />
     );

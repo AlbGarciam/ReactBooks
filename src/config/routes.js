@@ -1,3 +1,6 @@
-export default APP_ROUTES = {
+const APP_ROUTES = {
   BOOK_LIST: 'BOOK_LIST',
+  BOOK_DETAILS: 'BOOK_DETAILS',
 };
+
+export default APP_ROUTES;

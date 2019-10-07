@@ -1,2 +1,3 @@
 import BookList from './book-list';
-export {BookList};
+import BookDetails from './book-detail';
+export {BookList, BookDetails};
