@@ -41,9 +41,9 @@ export const initBooksList = () => {
   };
 };
 
-export const updateBooksListOffset = () => {
+export const updateBookListOffset = () => {
   return (dispatch, getState) => {
-    const {offset} = getState().characters;
+    const {offset} = getState().books;
     const newOffset = offset + LIMIT;
     dispatch(updateOffset(newOffset));
     dispatch(fetchBooksList());
@@ -53,13 +53,16 @@ export const updateBooksListOffset = () => {
 export const fetchBooksList = () => {
   return (dispatch, getState) => {
     const searchText = 'game of thrones'.split(' ').join('+');
-    console.log(searchText);
-    const params = {q: searchText};
+    const {offset, list} = getState().books;
+    const params = {q: searchText, maxResults: LIMIT, startIndex: offset};
     dispatch(setFetching(true));
     api
       .getBooks(params)
       .then(response => {
-        console.log(response);
+        const bookList = _.get(response, 'items', []);
+        const totalItems = _.get(response, 'totalItems', []);
+        console.log(`length: ${bookList.length}`);
+        dispatch(updateList([...list, ...bookList], totalItems));
       })
       .catch(error => {
         console.log(error);

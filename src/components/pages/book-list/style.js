@@ -6,6 +6,6 @@ export default StyleSheet.create({
     flex: 1,
   },
   list: {
-    paddingTop: 60,
+    paddingBottom: 20,
   },
 });

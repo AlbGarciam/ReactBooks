@@ -7,6 +7,8 @@ const mapStateToProps = state => {
   return {
     bookList: state.books.list, // Coge el nombre del fichero redux/index
     isFetching: state.books.isFetching,
+    total: state.books.total,
+    offset: state.books.offset,
   };
 };
 
@@ -17,6 +19,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     updateSelectedBook: book => {
       dispatch(BooksActions.updateSelectedBook(book));
+    },
+    updateBookListOffset: () => {
+      dispatch(BooksActions.updateBookListOffset());
     },
   };
 };
