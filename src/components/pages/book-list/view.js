@@ -1,6 +1,7 @@
 import React from 'react';
 import {SafeAreaView, FlatList, RefreshControl} from 'react-native';
 import {BookCell} from '../../molecules';
+import {RoundedButton} from '../../atoms';
 import styles from './style';
 import {Actions} from 'react-native-router-flux';
 import APP_ROUTES from '../../../config/routes';
@@ -58,6 +59,7 @@ export default class BookList extends React.Component {
             />
           }
         />
+        <RoundedButton style={styles.addButton} title="+" />
       </SafeAreaView>
     );
   }

@@ -8,4 +8,9 @@ export default StyleSheet.create({
   list: {
     paddingBottom: 20,
   },
+  addButton: {
+    position: 'absolute',
+    bottom: 32,
+    right: 16,
+  },
 });
