@@ -10,7 +10,7 @@ export default RoundedButton = ({title, image, onPress, style}) => {
     icon = {uri: image};
   }
   return (
-    <TouchableOpacity onPress={onPress} style={{...style, ...styles.container}}>
+    <TouchableOpacity onPress={onPress} style={{...styles.container, ...style}}>
       {_.isNil(image) ? null : <Image style={styles.icon} source={icon} />}
       {_.isNil(title) ? null : <Text style={styles.title}>{title}</Text>}
     </TouchableOpacity>

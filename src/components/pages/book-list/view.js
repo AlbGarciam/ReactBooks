@@ -6,12 +6,27 @@ import styles from './style';
 import {Actions} from 'react-native-router-flux';
 import APP_ROUTES from '../../../config/routes';
 import _ from 'lodash';
+import AddBookModal from '../../organism/add-book-modal/view';
 
 export default class BookList extends React.Component {
   constructor(props) {
     super(props);
     this.props.initBooksList();
+    this.state = {
+      isDisplayingModal: false,
+    };
   }
+
+  _onAddResponse = data => {
+    console.log(data);
+    this.setState({isDisplayingModal: false});
+  };
+
+  _onAddButtonPressed = () => {
+    this.setState({
+      isDisplayingModal: true,
+    });
+  };
 
   _renderItem = book => {
     return (
@@ -39,6 +54,7 @@ export default class BookList extends React.Component {
 
   render() {
     const {bookList, isFetching} = this.props;
+    const {isDisplayingModal} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
@@ -59,7 +75,18 @@ export default class BookList extends React.Component {
             />
           }
         />
-        <RoundedButton style={styles.addButton} title="+" />
+        <RoundedButton
+          style={styles.addButton}
+          onPress={this._onAddButtonPressed}
+          title="+"
+        />
+        <AddBookModal
+          isVisible={isDisplayingModal}
+          cancelAction={() => {
+            this.setState({isDisplayingModal: false});
+          }}
+          onAdd={this._onAddResponse}
+        />
       </SafeAreaView>
     );
   }

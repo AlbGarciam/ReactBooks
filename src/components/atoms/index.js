@@ -1,2 +1,3 @@
 import RoundedButton from './rounded-button';
-export {RoundedButton};
+import CustomTextInput from './text-input';
+export {RoundedButton, CustomTextInput};
