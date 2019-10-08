@@ -18,7 +18,8 @@ export default class BookList extends React.Component {
   }
 
   _onAddResponse = data => {
-    console.log(data);
+    // Pending to implement parsing
+    this.props.insertBookList(data);
     this.setState({isDisplayingModal: false});
   };
 

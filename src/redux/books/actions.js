@@ -71,3 +71,10 @@ export const fetchBooksList = () => {
       });
   };
 };
+
+export const insertBookOnList = book => {
+  return (dispatch, getState) => {
+    const {list, totalItems} = getState().books;
+    dispatch(updateList([book, ...list], totalItems));
+  };
+};
