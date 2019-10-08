@@ -38,7 +38,6 @@ export default class DetailsHeader extends React.Component {
     const title = _.get(book, 'volumeInfo.title', 'No title');
     const authors = _.get(book, 'volumeInfo.authors', []).join(',');
     const price = _.get(book, 'saleInfo.listPrice');
-    console.log(book);
     const priceLabel = `${_.get(price, 'amount')} ${_.get(
       price,
       'currencyCode',
