@@ -14,12 +14,16 @@ export default class DetailsHeader extends React.Component {
 
   componentDidMount() {
     const {book} = this.props;
-    const image = _.isNil(book, 'volumeInfo.imageLinks.smallThumbnail')
-      ? require('../../../assets/images/placeholder.png')
-      : {uri: _.get(book, 'volumeInfo.imageLinks.thumbnail')};
-    Image.getSize(image, this._onImageSizeObtained, err => {
-      console.log('getSize err:', err);
-    });
+    const thumbnail = _.get(book, 'volumeInfo.imageLinks.thumbnail');
+    if (_.isNil(thumbnail)) {
+      const url = require('../../../assets/images/placeholder.png');
+      const image = Image.resolveAssetSource(url);
+      this._onImageSizeObtained(image.width, image.height);
+    } else {
+      Image.getSize(thumbnail, this._onImageSizeObtained, err => {
+        console.log('getSize err:', err);
+      });
+    }
   }
 
   _onImageSizeObtained = (imgWidth, imgHeight) => {
@@ -42,10 +46,10 @@ export default class DetailsHeader extends React.Component {
       price,
       'currencyCode',
     )}`;
-
-    const image = _.isNil(book, 'volumeInfo.imageLinks.smallThumbnail')
+    const thumbnail = _.get(book, 'volumeInfo.imageLinks.thumbnail');
+    const image = _.isNil(thumbnail)
       ? require('../../../assets/images/placeholder.png')
-      : {uri: _.get(book, 'volumeInfo.imageLinks.thumbnail')};
+      : {uri: thumbnail};
     return (
       <View style={styles.container}>
         <Image

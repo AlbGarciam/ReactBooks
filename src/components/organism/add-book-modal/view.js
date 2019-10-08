@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import Modal from 'react-native-modal';
 import {CustomTextInput} from '../../atoms';
 import styles from './style';
+import _ from 'lodash';
 
 export default class AddBookModal extends React.Component {
   _onChange = (sender, value) => {
@@ -12,8 +13,23 @@ export default class AddBookModal extends React.Component {
   };
 
   _onAddButtonPressed = () => {
-    this.props.onAdd(this.state);
+    const volumeInfo = {
+      title: _.get(this.state, 'title'),
+      authors: _.get(this.state, 'authors', []).split(','),
+    };
+    const listPrice = {
+      amount: _.get(this.state, 'amount', 0),
+      currencyCode: 'EUR',
+    };
+    const data = {
+      volumeInfo: volumeInfo,
+      saleInfo: {
+        listPrice,
+      },
+    };
+    this.props.onAdd(data);
   };
+
   _onCancelButtonPressed = () => {
     this.props.cancelAction();
   };
@@ -38,14 +54,14 @@ export default class AddBookModal extends React.Component {
           />
           <CustomTextInput
             style={styles.input}
-            name="author"
+            name="authors"
             title="Author"
             placeholder="Book's author"
             onChange={this._onChange}
           />
           <CustomTextInput
             style={styles.input}
-            name="price"
+            name="amount"
             title="Price"
             placeholder="Book's price"
             onChange={this._onChange}

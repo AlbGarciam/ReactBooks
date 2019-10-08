@@ -74,7 +74,8 @@ export const fetchBooksList = () => {
 
 export const insertBookOnList = book => {
   return (dispatch, getState) => {
-    const {list, totalItems} = getState().books;
-    dispatch(updateList([book, ...list], totalItems));
+    const {list, total} = getState().books;
+    console.log(total);
+    dispatch(updateList([book, ...list], total));
   };
 };

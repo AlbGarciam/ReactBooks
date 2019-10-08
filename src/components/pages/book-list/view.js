@@ -36,7 +36,7 @@ export default class BookList extends React.Component {
         onPress={book => {
           this.props.updateSelectedBook(book);
           Actions.push(APP_ROUTES.BOOK_DETAILS, {
-            title: _.get(book, 'volumeInfo.title'),
+            title: _.get(book, 'volumeInfo.title') || 'No title',
           });
         }}
       />
