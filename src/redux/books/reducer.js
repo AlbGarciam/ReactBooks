@@ -6,6 +6,7 @@ const initialState = {
   offset: 0,
   selectedItem: null,
   isFetching: false,
+  searchQuery: '',
 };
 
 export default reducer = (state = initialState, action = {}) => {
@@ -30,6 +31,11 @@ export default reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         offset: action.value,
+      };
+    case Types.BOOKS_UPDATE_SEARCH_QUERY:
+      return {
+        ...state,
+        searchQuery: action.value,
       };
     default:
       return state;

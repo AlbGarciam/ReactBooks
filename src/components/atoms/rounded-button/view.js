@@ -23,6 +23,6 @@ RoundedButton.defaultProps = {
 
 RoundedButton.propTypes = {
   title: PropTypes.string,
-  image: PropTypes.image,
+  image: PropTypes.string,
   onPress: PropTypes.func,
 };

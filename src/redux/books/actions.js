@@ -33,6 +33,13 @@ export const updateOffset = value => {
   };
 };
 
+export const updateSearchQuery = value => {
+  return {
+    type: types.BOOKS_UPDATE_SEARCH_QUERY,
+    value: value,
+  };
+};
+
 export const initBooksList = () => {
   return dispatch => {
     dispatch(updateList([], 0));
@@ -50,17 +57,24 @@ export const updateBookListOffset = () => {
   };
 };
 
+export const updateSearch = value => {
+  return dispatch => {
+    dispatch(updateSearchQuery(value));
+    dispatch(initBooksList());
+  };
+};
+
 export const fetchBooksList = () => {
   return (dispatch, getState) => {
-    const searchText = 'game of thrones'.split(' ').join('+');
-    const {offset, list} = getState().books;
+    const {offset, list, searchQuery} = getState().books;
+    const searchText = searchQuery.split(' ').join('+');
     const params = {q: searchText, maxResults: LIMIT, startIndex: offset};
     dispatch(setFetching(true));
     api
       .getBooks(params)
       .then(response => {
         const bookList = _.get(response, 'items', []);
-        const totalItems = _.get(response, 'totalItems', []);
+        const totalItems = _.get(response, 'totalItems', 0);
         dispatch(updateList([...list, ...bookList], totalItems));
       })
       .catch(error => {
@@ -75,7 +89,6 @@ export const fetchBooksList = () => {
 export const insertBookOnList = book => {
   return (dispatch, getState) => {
     const {list, total} = getState().books;
-    console.log(total);
-    dispatch(updateList([book, ...list], total));
+    dispatch(updateList([book, ...list], total + 1));
   };
 };

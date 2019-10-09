@@ -10,15 +10,15 @@ export default class CustomTextInput extends React.Component {
   };
 
   render() {
-    const {title, placeholder, onChange} = this.props;
+    const {title, placeholder, onChange, initialValue} = this.props;
     const {value} = this.state;
     return (
       <View style={{...this.props.style, ...styles.inputContainer}}>
-        <Text style={styles.label}>{title}</Text>
+        {_.isNil(title) ? null : <Text style={styles.label}>{title}</Text>}
         <View style={styles.inputView}>
           <TextInput
             style={styles.input}
-            value={value}
+            value={value == '' ? initialValue || '' : value}
             onChangeText={value => {
               onChange(this, value);
               this.setState({value: value});
@@ -38,7 +38,8 @@ CustomTextInput.defaultProps = {
 };
 
 CustomTextInput.propTypes = {
-  title: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  initialValue: PropTypes.string,
 };

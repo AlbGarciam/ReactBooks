@@ -1,7 +1,7 @@
 import React from 'react';
-import {SafeAreaView, FlatList, RefreshControl} from 'react-native';
+import {SafeAreaView, FlatList, RefreshControl, Text} from 'react-native';
 import {BookCell} from '../../molecules';
-import {RoundedButton} from '../../atoms';
+import {RoundedButton, CustomTextInput} from '../../atoms';
 import styles from './style';
 import {Actions} from 'react-native-router-flux';
 import APP_ROUTES from '../../../config/routes';
@@ -18,7 +18,6 @@ export default class BookList extends React.Component {
   }
 
   _onAddResponse = data => {
-    // Pending to implement parsing
     this.props.insertBookList(data);
     this.setState({isDisplayingModal: false});
   };
@@ -43,6 +42,10 @@ export default class BookList extends React.Component {
     );
   };
 
+  _onSearchChanged = (sender, value) => {
+    this.props.updateSearchQuery(value);
+  };
+
   _onEndReached = ({distanceFromEnd}) => {
     const {isFetching, bookList, total} = this.props;
     const onEndReached =
@@ -54,28 +57,39 @@ export default class BookList extends React.Component {
   };
 
   render() {
-    const {bookList, isFetching} = this.props;
+    const {bookList, isFetching, searchQuery} = this.props;
     const {isDisplayingModal} = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <FlatList
-          style={styles.list}
-          data={bookList}
-          renderItem={this._renderItem}
-          keyExtractor={(value, index) => `book-${index}`}
-          numColumns={1}
-          extraData={this.props}
-          onEndReached={this._onEndReached}
-          onEndReachedThreshold={0.8}
-          refreshControl={
-            <RefreshControl
-              refreshing={isFetching}
-              onRefresh={this.props.initBooksList}
-              tintColor={'black'}
-              colors={['black']}
-            />
-          }
+        <CustomTextInput
+          style={styles.input}
+          name="search"
+          placeholder="Search"
+          initialValue={searchQuery}
+          onChange={this._onSearchChanged}
         />
+        {(bookList || []).length == 0 ? (
+          <Text>No items found :(</Text>
+        ) : (
+          <FlatList
+            style={styles.list}
+            data={bookList}
+            renderItem={this._renderItem}
+            keyExtractor={(value, index) => `book-${index}`}
+            numColumns={1}
+            extraData={this.props}
+            onEndReached={this._onEndReached}
+            onEndReachedThreshold={0.8}
+            refreshControl={
+              <RefreshControl
+                refreshing={isFetching}
+                onRefresh={this.props.initBooksList}
+                tintColor={'black'}
+                colors={['black']}
+              />
+            }
+          />
+        )}
         <RoundedButton
           style={styles.addButton}
           onPress={this._onAddButtonPressed}

@@ -9,6 +9,7 @@ const mapStateToProps = state => {
     isFetching: state.books.isFetching,
     total: state.books.total,
     offset: state.books.offset,
+    searchQuery: state.books.searchQuery,
   };
 };
 
@@ -25,6 +26,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     insertBookList: book => {
       dispatch(BooksActions.insertBookOnList(book));
+    },
+    updateSearchQuery: value => {
+      dispatch(BooksActions.updateSearch(value));
     },
   };
 };
